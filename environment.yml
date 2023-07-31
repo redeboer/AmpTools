@@ -1,0 +1,10 @@
+name: amptools
+channels:
+  - conda-forge
+dependencies:
+  - root
+variables:
+  AMPPLOTTER: $AMPTOOLS_HOME/AmpPlotter
+  AMPTOOLS: $AMPTOOLS_HOME/AmpTools
+  AMPTOOLS_HOME: .
+  DALITZ: $AMPTOOLS_HOME/Tutorials/Dalitz
