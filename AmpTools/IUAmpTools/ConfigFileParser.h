@@ -106,7 +106,48 @@
 
 using namespace std;
 
-class ConfigFileLine;
+/**
+ *  The ConfigFileLine class holds a line of a parsed config file.
+ *
+ *    A line of the config file has the form:
+ *
+ *        keyword  argument1  argument2  argument3 .....
+ *
+ *    comment() = true for lines starting with # or empty lines
+ */
+
+
+class ConfigFileLine
+{
+
+  public:
+  
+    ConfigFileLine(){}
+
+    ConfigFileLine(const string& fileName, int lineNumber, const string& line);
+
+    string          line()           const {return m_line;}
+    string          fileName()       const {return m_fileName;}
+    int             lineNumber()     const {return m_lineNumber;}
+    string          keyword()        const {return m_keyword;}
+    vector<string>  arguments()      const {return m_arguments;}
+    bool            comment()        const {return m_comment;}
+
+    void            printLine()      const;
+    void            printArguments() const;
+    void            flushDefinition(const string& word, const vector<string>& definition);
+
+  private:
+
+    string          m_line;
+    string          m_fileName;
+    int             m_lineNumber;
+    string          m_keyword;
+    vector<string>  m_arguments;
+    bool            m_comment;
+
+  static const char* kModule;
+};
 
 
 class ConfigFileParser
@@ -257,50 +298,6 @@ class ConfigFileParser
 inline istream& operator>>( istream& input, ConfigFileParser& parser ){
   parser.readConfigFile( input );  return input;
 }
-
-
-/**
- *  The ConfigFileLine class holds a line of a parsed config file.
- *
- *    A line of the config file has the form:
- *
- *        keyword  argument1  argument2  argument3 .....
- *
- *    comment() = true for lines starting with # or empty lines
- */
-
-
-class ConfigFileLine
-{
-
-  public:
-  
-    ConfigFileLine(){}
-
-    ConfigFileLine(const string& fileName, int lineNumber, const string& line);
-
-    string          line()           const {return m_line;}
-    string          fileName()       const {return m_fileName;}
-    int             lineNumber()     const {return m_lineNumber;}
-    string          keyword()        const {return m_keyword;}
-    vector<string>  arguments()      const {return m_arguments;}
-    bool            comment()        const {return m_comment;}
-
-    void            printLine()      const;
-    void            printArguments() const;
-    void            flushDefinition(const string& word, const vector<string>& definition);
-
-  private:
-
-    string          m_line;
-    string          m_fileName;
-    int             m_lineNumber;
-    string          m_keyword;
-    vector<string>  m_arguments;
-    bool            m_comment;
-
-  static const char* kModule;
-};
 
 
 #endif
